@@ -32,7 +32,7 @@ class MovieDetails extends React.Component {
         http(
             `/movies/${this.movieId}`,
         ).then(res => {
-            this.setState(res.data);
+            this.setState({ movie: res.data });
             this.contentLoading = false;
             if (!this.imageLoading) {
                 this.context.updateGlobals({ isLoading: false });

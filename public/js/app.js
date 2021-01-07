@@ -14803,7 +14803,9 @@ var MovieDetails = /*#__PURE__*/function (_React$Component) {
         isLoading: true
       });
       (0,_http__WEBPACK_IMPORTED_MODULE_3__.default)("/movies/".concat(this.movieId)).then(function (res) {
-        _this2.setState(res.data);
+        _this2.setState({
+          movie: res.data
+        });
 
         _this2.contentLoading = false;
 
