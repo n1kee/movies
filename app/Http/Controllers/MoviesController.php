@@ -18,7 +18,6 @@ class MoviesController extends Controller
     }
 
 	function getById($id) {
-		\request()->validate([ 'id' => 'required|numeric', ]);
 		$movie = Movie::find($id);
 		if (!$movie) return response("Not found", 404);
 		return response()->json($movie);

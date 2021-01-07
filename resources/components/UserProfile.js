@@ -2,43 +2,19 @@ import React from 'react';
 import http from "./http";
 import {Link} from "react-router-dom";
 import Error from "./Error";
-import Form from "./Form";
 import {numericMask} from "./inputMasks";
-import { ToastContainer, toast } from 'react-toastify';
+import {toast, ToastContainer} from 'react-toastify';
 
-class UserProfile extends Form {
+class UserProfile extends React.Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            maxAutoBid: "",
-            formClassName: "form curtain",
-            maxBidError: "",
-        };
-    }
-
-    getMaxBidChange() {
-        http(`/users/current-user/max-auto-bid`)
-            .then(res => this.setState({
-                maxAutoBid: res.data,
-                formClassName: this.state.formClassName
-                    .replace("curtain", ""),
-            }));
-    }
-
-    onMaxBidChange(evt) {
-        this.setState({ maxAutoBid: numericMask(evt.target.value) });
-    }
-
-    onMaxBidSave() {
-        http(`/users/current-user/max-auto-bid`, {
-            max_auto_bid: this.state.maxAutoBid,
-        }, "POST")
-            .then(() => toast("Saved!"));
-    }
+    state = {
+        maxAutoBid: "",
+        formClassName: "form curtain",
+        maxBidError: "",
+    };
 
     componentDidMount() {
-        this.getMaxBidChange();
+        this.context.updateGlobals({ isLoading: true });
     }
 
     render() {

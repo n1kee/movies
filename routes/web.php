@@ -13,10 +13,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::prefix('api')->group(function () {
+	Route::get('/movies', "MoviesController@get");
+
+	Route::get('/movies/{id}', "MoviesController@getById")
+		->where('id', '[0-9]+');
 });
 
-Route::get('/movies', "MoviesController@get");
-
-Route::get('/movies/{id}', "MoviesController@getById");
+Route::get('/{any}',  function () {
+	return view('welcome');
+})->where('any', '^(?!api).*$');

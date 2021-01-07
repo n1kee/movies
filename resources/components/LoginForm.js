@@ -3,21 +3,17 @@ import React from 'react';
 import http from "./http";
 import history from "./history"
 import Error from "./Error";
-import Form from "./Form";
-import {CredentialsContext} from "./credentials";
+import {AppContext} from "./globals";
 
-class LoginForm extends Form {
+class LoginForm extends React.Component {
 
-    static contextType = CredentialsContext;
+    static contextType = AppContext;
 
-    constructor(params) {
-        super(params);
-        this.state = {
-            name: null,
-            password: null,
-            errorText: "",
-        };
-    }
+    state = {
+        name: null,
+        password: null,
+        errorText: "",
+    };
 
     handleSubmit(event) {
         event.preventDefault();
@@ -32,7 +28,7 @@ class LoginForm extends Form {
             if (res.response.status === 200) {
                 localStorage.setItem("api_token", res.data.api_token);
                 localStorage.setItem("user_name", res.data.user_name);
-                this.context.updateCredentials(res.data.user_name);
+                this.context.updateGlobals({ userName: res.data.user_name });
                 history.push('/');
             } else if (res.response.status === 401) {
                 this.setState({ errorText: "Wrong username or password!" });

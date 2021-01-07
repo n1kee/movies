@@ -1,7 +1,7 @@
 @import "~bootstrap/scss/bootstrap";
 @import "components/App/App.css";
 @import "components/Links/Links";
-@import "components/GoodList/GoodList";
+@import "components/MovieList/MovieList";
 @import '~react-toastify/dist/ReactToastify.css';
 
 button, [type="checkbox"], [type="submit"] {
@@ -45,3 +45,4 @@ code {
   max-width: 600px;
   margin: 0 auto;
 }
+

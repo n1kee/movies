@@ -1,28 +1,35 @@
 import React from 'react';
 import RouteCfg from '../routes';
 import Links from "../Links/Links";
-import {CredentialsContext} from "../credentials";
+import {AppContext} from "../globals";
 
 class App extends React.Component {
 
-    render() {
-        this.updateCredentials = userName => {
-            this.setState(state => ({ userName }));
-        };
+    state = {
+        isLoading: false,
+        imgHost: "https://image.tmdb.org/t/p/w300/",
+        userName: localStorage.getItem("user_name"),
+        updateGlobals: state => {
+            this.setState(state, () =>  console.log("updateGlobals", state, this.state.isLoading));
+        },
+    };
 
-        this.state = {
-            userName: localStorage.getItem("user_name"),
-            updateCredentials: this.updateCredentials,
-        };
+    render() {
 
         return (
             <div className="App">
-                <CredentialsContext.Provider value={this.state}>
-                    <Links></Links>
-                    <div className="content">
-                        <RouteCfg/>
+                <AppContext.Provider value={this.state}>
+                    <div className={this.state.isLoading ? "invisible" : ""}>
+                        <Links></Links>
+                        <div className="content"><RouteCfg/></div>
                     </div>
-                </CredentialsContext.Provider>
+                    <div className="text-center fixed-top">
+                        <img
+                            className={this.state.isLoading ? "" : "d-none"}
+                            src="/img/sand_clock.gif"
+                        />
+                    </div>
+                </AppContext.Provider>
             </div>
         );
   }

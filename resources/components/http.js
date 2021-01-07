@@ -9,7 +9,7 @@ export default function http(path, params, method, headers) {
 
     if (isGetReq) path += "?" + new URLSearchParams(params);
     return fetch(
-        path,
+        `/api${path}`,
         {
             method: method,
             headers: {

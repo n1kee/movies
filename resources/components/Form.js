@@ -1,18 +1,24 @@
 import './App/App.css';
 import React from 'react';
+import {AppContext} from "./globals";
 
 class Form extends React.Component {
+
+    static contextType = AppContext;
+
     lockForm() {
-        this.setState({
-            formClassName: `${this.state.formClassName} curtain`,
-        });
+        this.context.updateGlobals({ isLoading: true });
+        //this.setState({
+        //    formClassName: `${this.state.formClassName} d-none`,
+        //});
     }
 
     unlockForm() {
-        this.setState({
-            formClassName: this.state.formClassName
-                .replace("curtain", ""),
-        });
+        this.context.updateGlobals({ isLoading: false });
+        //this.setState({
+        //    formClassName: this.state.formClassName
+        //        .replace("d-none", ""),
+        //});
     }
 }
 

@@ -8,20 +8,21 @@ import TableRow from '@material-ui/core/TableRow';
 import TablePagination from '@material-ui/core/TablePagination';
 import http from "../http";
 import history from "../history";
+import {AppContext} from "../globals";
 
 class MovieList extends React.Component {
 
-    constructor(props) {
-        super(props);
-        this.rowsPerPage = 10;
-        this.state = {
-            items: [],
-            itemsTotal: 0,
-            page: 1,
-            orderBy: "",
-            orderDirection: false,
-        };
-    }
+    static contextType = AppContext;
+
+    rowsPerPage = 10;
+
+    state = {
+        items: [],
+        itemsTotal: 0,
+        page: 1,
+        orderBy: "",
+        orderDirection: false,
+    };
 
     onItemClick(id) {
         console.log("onItemClick", id);
@@ -29,12 +30,15 @@ class MovieList extends React.Component {
     }
 
     changePage(page) {
+        this.context.updateGlobals({ isLoading: true });
         const params = { page: page + 1, };
         http('/movies', params).then(res => {
             this.setState({
                 page,
                 items: res.data.movies || [],
                 itemsTotal: res.data.movies_total,
+            }, () => {
+                this.context.updateGlobals({ isLoading: false });
             });
         });
     }

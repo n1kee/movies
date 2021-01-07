@@ -1,11 +1,11 @@
 import React, {useContext, useEffect} from 'react';
 import {Link, Route, Switch} from 'react-router-dom';
-import MovieList from "./GoodList/MovieList";
-import GoodDetails from "./GoodDetails";
+import MovieList from "./MovieList/MovieList";
+import MovieDetails from "./MovieDetails";
 import LoginForm from "./LoginForm";
 import UserProfile from "./UserProfile";
 import history from "./history";
-import {CredentialsContext} from "./credentials";
+import {AppContext} from "./globals";
 
 const routes = [
     {
@@ -21,8 +21,8 @@ const routes = [
     },
     {
         name: "Movie details",
-        path: "/movies/:goodId",
-        component: GoodDetails,
+        path: "/movies/:movieId",
+        component: MovieDetails,
     },
     {
         name: "Profile",
@@ -33,7 +33,7 @@ const routes = [
         name: "Logout",
         path: "/logout",
         component: function () {
-            const credentialsContext = useContext(CredentialsContext);
+            const credentialsContext = useContext(AppContext);
             useEffect(() => {
                 credentialsContext.updateCredentials(null);
 

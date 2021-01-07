@@ -1,10 +1,10 @@
 import React from 'react';
 import {Link} from "react-router-dom";
-import {CredentialsContext} from "../credentials";
+import {AppContext} from "../globals";
 
 class Links extends React.Component {
 
-    static contextType = CredentialsContext;
+    static contextType = AppContext;
 
     render() {
         if (!this.context.userName) return null;
