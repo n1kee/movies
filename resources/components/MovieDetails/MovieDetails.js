@@ -4,8 +4,9 @@ import http from "../http";
 import {ToastContainer} from 'react-toastify';
 import {AppContext} from "../globals";
 import {Link} from "react-router-dom";
+import Component from "../Component";
 
-class MovieDetails extends React.Component {
+class MovieDetails extends Component {
 
     static contextType = AppContext;
 

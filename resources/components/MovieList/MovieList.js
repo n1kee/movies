@@ -9,8 +9,9 @@ import TablePagination from '@material-ui/core/TablePagination';
 import http from "../http";
 import history from "../history";
 import {AppContext} from "../globals";
+import Component from "../Component";
 
-class MovieList extends React.Component {
+class MovieList extends Component {
 
     static contextType = AppContext;
 
@@ -33,6 +34,7 @@ class MovieList extends React.Component {
         this.context.updateGlobals({ isLoading: true });
         const params = { page: page + 1, };
         http('/movies', params).then(res => {
+            console.log("%%%");
             this.setState({
                 page,
                 items: res.data.movies || [],

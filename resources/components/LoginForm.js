@@ -4,8 +4,9 @@ import http from "./http";
 import history from "./history"
 import Error from "./Error";
 import {AppContext} from "./globals";
+import Component from "./Component";
 
-class LoginForm extends React.Component {
+class LoginForm extends Component {
 
     static contextType = AppContext;
 

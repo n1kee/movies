@@ -21,6 +21,13 @@ Route::prefix('api')->group(function () {
 
 	Route::get('/movies/{id}', "MoviesController@getById")
 		->where('id', '[0-9]+');
+
+	Route::get('/movies/{id}/like/{userId}', "MoviesController@like")
+		->where('id', '[0-9]+')
+		->where('userId', '[0-9]+');
+
+	Route::post('/movies/unlike/{likeId}', "MoviesController@unlike")
+		->where('likeId', '[0-9]+');
 });
 
 Route::get('/{any}',  function () {

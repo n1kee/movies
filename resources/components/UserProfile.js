@@ -1,11 +1,10 @@
 import React from 'react';
-import http from "./http";
 import {Link} from "react-router-dom";
 import Error from "./Error";
-import {numericMask} from "./inputMasks";
-import {toast, ToastContainer} from 'react-toastify';
+import {ToastContainer} from 'react-toastify';
+import Component from "./Component";
 
-class UserProfile extends React.Component {
+class UserProfile extends Component {
 
     state = {
         maxAutoBid: "",

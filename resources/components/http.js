@@ -25,7 +25,7 @@ export default function http(path, params, method, headers) {
         if (res.status !== 200) {
             switch (res.status) {
                 case 401:
-                    history.push('/login');
+                    setTimeout(() => history.push('/login'), 0);
                     break;
                 default:
                     if (!res.ok) return alert(res.statusText);
