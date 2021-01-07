@@ -1,0 +1,47 @@
+@import "~bootstrap/scss/bootstrap";
+@import "components/App/App.css";
+@import "components/Links/Links";
+@import "components/GoodList/GoodList";
+@import '~react-toastify/dist/ReactToastify.css';
+
+button, [type="checkbox"], [type="submit"] {
+  cursor: pointer;
+}
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+.error {
+  color: red;
+}
+.form td {
+  padding: 16px;
+}
+.form td * {
+  vertical-align: middle;
+}
+.form td td {
+  padding: 0;
+}
+.curtain:before {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  background: #fff;
+  width: 100%;
+  height: 100%;
+  opacity: 0.5;
+}
+.content {
+  max-width: 600px;
+  margin: 0 auto;
+}

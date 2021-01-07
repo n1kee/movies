@@ -1,0 +1,7 @@
+
+.links {
+    padding: 16px;
+}
+.links * + * {
+    margin-left: 10px;
+}
