@@ -13,6 +13,7 @@ export default function http(path, params, method, headers) {
         `/api${path}`,
         {
             method: method,
+            //credentials: "same-origin",
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',

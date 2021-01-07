@@ -10786,6 +10786,10 @@ h3 {
   padding: 16px;
 }
 
+.movie-details {
+  max-width: 600px;
+}
+
 button, [type=checkbox], [type=submit] {
   cursor: pointer;
 }
@@ -10828,6 +10832,5 @@ code {
 }
 
 .content {
-  max-width: 600px;
   margin: 0 auto;
 }

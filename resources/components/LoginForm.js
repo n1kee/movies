@@ -20,22 +20,20 @@ class LoginForm extends React.Component {
         this.context.updateGlobals({ isLoading: true });
 
         http("/login", {
-            credentials: "same-origin",
             email: this.state.name,
             password: this.state.password,
         }, "POST")
         .then(res => {
+            const globalContextUpd = { isLoading: false };
             if (res.response.status === 200) {
                 localStorage.setItem("api_token", res.data.api_token);
                 localStorage.setItem("user_name", res.data.user_name);
-                this.context.updateGlobals({
-                    userName: res.data.user_name,
-                    isLoading: false,
-                });
+                globalContextUpd.userName = res.data.user_name;
                 history.push('/');
             } else if (res.response.status === 401) {
                 this.setState({ errorText: "Wrong username or password!" });
             }
+            this.context.updateGlobals(globalContextUpd);
         });
     }
 

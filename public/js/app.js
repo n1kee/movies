@@ -14605,25 +14605,25 @@ var LoginForm = /*#__PURE__*/function (_React$Component) {
         isLoading: true
       });
       (0,_http__WEBPACK_IMPORTED_MODULE_3__.default)("/login", {
-        credentials: "same-origin",
         email: this.state.name,
         password: this.state.password
       }, "POST").then(function (res) {
+        var globalContextUpd = {
+          isLoading: false
+        };
+
         if (res.response.status === 200) {
           localStorage.setItem("api_token", res.data.api_token);
           localStorage.setItem("user_name", res.data.user_name);
-
-          _this2.context.updateGlobals({
-            userName: res.data.user_name,
-            isLoading: false
-          });
-
+          globalContextUpd.userName = res.data.user_name;
           _history__WEBPACK_IMPORTED_MODULE_4__.default.push('/');
         } else if (res.response.status === 401) {
           _this2.setState({
             errorText: "Wrong username or password!"
           });
         }
+
+        _this2.context.updateGlobals(globalContextUpd);
       });
     }
   }, {
@@ -14706,10 +14706,10 @@ _defineProperty(LoginForm, "contextType", _globals__WEBPACK_IMPORTED_MODULE_6__.
 
 /***/ }),
 
-/***/ "./resources/components/MovieDetails.js":
-/*!**********************************************!*\
-  !*** ./resources/components/MovieDetails.js ***!
-  \**********************************************/
+/***/ "./resources/components/MovieDetails/MovieDetails.js":
+/*!***********************************************************!*\
+  !*** ./resources/components/MovieDetails/MovieDetails.js ***!
+  \***********************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -14718,11 +14718,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-/* harmony import */ var _App_App_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./App/App.css */ "./resources/components/App/App.css");
+/* harmony import */ var _App_App_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../App/App.css */ "./resources/components/App/App.css");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var _http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./http */ "./resources/components/http.js");
+/* harmony import */ var _http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../http */ "./resources/components/http.js");
 /* harmony import */ var react_toastify__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-toastify */ "./node_modules/react-toastify/dist/react-toastify.esm.js");
-/* harmony import */ var _globals__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./globals */ "./resources/components/globals.js");
+/* harmony import */ var _globals__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../globals */ "./resources/components/globals.js");
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -14779,7 +14779,7 @@ var MovieDetails = /*#__PURE__*/function (_React$Component) {
     _defineProperty(_assertThisInitialized(_this), "imageLoading", true);
 
     _defineProperty(_assertThisInitialized(_this), "state", {
-      formClassName: "form position-relative"
+      formClassName: "form movie-details position-relative"
     });
 
     return _this;
@@ -14837,24 +14837,21 @@ var MovieDetails = /*#__PURE__*/function (_React$Component) {
           _this$state$movie5;
 
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react__WEBPACK_IMPORTED_MODULE_2__.Fragment, {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("table", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+          className: "float-left",
+          children: this.state.movie && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("img", {
+            src: this.context.imgHost + ((_this$state$movie = this.state.movie) === null || _this$state$movie === void 0 ? void 0 : _this$state$movie.img),
+            onLoad: function onLoad() {
+              return _this3.onImageLoad();
+            },
+            onError: function onError() {
+              return _this3.onImageLoad();
+            }
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("table", {
           className: this.state.formClassName,
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("tbody", {
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("tr", {
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
-                colSpan: "2",
-                className: "text-center",
-                children: this.state.movie && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("img", {
-                  src: this.context.imgHost + ((_this$state$movie = this.state.movie) === null || _this$state$movie === void 0 ? void 0 : _this$state$movie.img),
-                  onLoad: function onLoad() {
-                    return _this3.onImageLoad();
-                  },
-                  onError: function onError() {
-                    return _this3.onImageLoad();
-                  }
-                })
-              })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("tr", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("tr", {
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
                 children: "Title:"
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
@@ -14882,6 +14879,7 @@ var MovieDetails = /*#__PURE__*/function (_React$Component) {
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
                 colSpan: "2",
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Link, {
+                  className: "float-right",
                   to: "/",
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
                     className: "btn btn-info",
@@ -15296,6 +15294,7 @@ function http(path, params, method, headers) {
   params._token = document.querySelector('[name="_token"]').value;
   return fetch("/api".concat(path), {
     method: method,
+    //credentials: "same-origin",
     headers: _objectSpread({
       'Content-Type': 'application/json',
       'Accept': 'application/json'
@@ -15433,7 +15432,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
 /* harmony import */ var _MovieList_MovieList__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./MovieList/MovieList */ "./resources/components/MovieList/MovieList.js");
-/* harmony import */ var _MovieDetails__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./MovieDetails */ "./resources/components/MovieDetails.js");
+/* harmony import */ var _MovieDetails_MovieDetails__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./MovieDetails/MovieDetails */ "./resources/components/MovieDetails/MovieDetails.js");
 /* harmony import */ var _LoginForm__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./LoginForm */ "./resources/components/LoginForm.js");
 /* harmony import */ var _UserProfile__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./UserProfile */ "./resources/components/UserProfile.js");
 /* harmony import */ var _history__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./history */ "./resources/components/history.js");
@@ -15466,7 +15465,7 @@ var routes = [{
 }, {
   name: "Movie details",
   path: "/movies/:movieId",
-  component: _MovieDetails__WEBPACK_IMPORTED_MODULE_3__.default
+  component: _MovieDetails_MovieDetails__WEBPACK_IMPORTED_MODULE_3__.default
 }, {
   name: "Profile",
   path: "/profile",

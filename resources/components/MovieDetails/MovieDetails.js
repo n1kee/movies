@@ -1,8 +1,8 @@
-import './App/App.css';
+import '../App/App.css';
 import React from 'react';
-import http from "./http";
+import http from "../http";
 import {ToastContainer} from 'react-toastify';
-import {AppContext} from "./globals";
+import {AppContext} from "../globals";
 import {Link} from "react-router-dom";
 
 class MovieDetails extends React.Component {
@@ -13,7 +13,7 @@ class MovieDetails extends React.Component {
     imageLoading = true;
 
     state = {
-        formClassName: "form position-relative",
+        formClassName: "form movie-details position-relative",
     };
 
     onImageLoad() {
@@ -50,21 +50,18 @@ class MovieDetails extends React.Component {
     render() {
         return (
             <React.Fragment>
+                <div className="float-left">
+                    {
+                        this.state.movie &&
+                        <img
+                            src={this.context.imgHost + this.state.movie?.img}
+                            onLoad={() => this.onImageLoad()}
+                            onError={() => this.onImageLoad()}
+                        />
+                    }
+                </div>
                 <table className={this.state.formClassName}>
                     <tbody>
-                        <tr>
-                            <td colSpan="2" className="text-center">
-                                {
-                                    this.state.movie &&
-                                    <img
-                                        src={this.context.imgHost + this.state.movie?.img}
-                                        onLoad={() => this.onImageLoad()}
-                                        onError={() => this.onImageLoad()}
-                                    />
-                                }
-
-                            </td>
-                        </tr>
                         <tr>
                             <td>Title:</td>
                             <td>{this.state.movie?.title}</td>
@@ -83,7 +80,7 @@ class MovieDetails extends React.Component {
                         </tr>
                         <tr>
                             <td colSpan="2">
-                                <Link to="/">
+                                <Link className="float-right" to="/">
                                     <button className="btn btn-info">Close</button>
                                 </Link>
                             </td>

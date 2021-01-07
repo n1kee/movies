@@ -2,6 +2,7 @@
 @import "components/App/App.css";
 @import "components/Links/Links";
 @import "components/MovieList/MovieList";
+@import "components/MovieDetails/MovieDetails";
 @import '~react-toastify/dist/ReactToastify.css';
 
 button, [type="checkbox"], [type="submit"] {
@@ -42,7 +43,6 @@ code {
   opacity: 0.5;
 }
 .content {
-  max-width: 600px;
   margin: 0 auto;
 }
 
