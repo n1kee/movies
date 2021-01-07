@@ -14601,19 +14601,21 @@ var LoginForm = /*#__PURE__*/function (_React$Component) {
       var _this2 = this;
 
       event.preventDefault();
-      this.lockForm();
+      this.context.updateGlobals({
+        isLoading: true
+      });
       (0,_http__WEBPACK_IMPORTED_MODULE_3__.default)("/login", {
-        name: this.state.name,
+        credentials: "same-origin",
+        email: this.state.name,
         password: this.state.password
       }, "POST").then(function (res) {
-        _this2.unlockForm();
-
         if (res.response.status === 200) {
           localStorage.setItem("api_token", res.data.api_token);
           localStorage.setItem("user_name", res.data.user_name);
 
           _this2.context.updateGlobals({
-            userName: res.data.user_name
+            userName: res.data.user_name,
+            isLoading: false
           });
 
           _history__WEBPACK_IMPORTED_MODULE_4__.default.push('/');
@@ -15291,6 +15293,7 @@ function http(path, params, method, headers) {
   params = params || {};
   var isGetReq = method.match(/get/i);
   if (isGetReq) path += "?" + new URLSearchParams(params);
+  params._token = document.querySelector('[name="_token"]').value;
   return fetch("/api".concat(path), {
     method: method,
     headers: _objectSpread({

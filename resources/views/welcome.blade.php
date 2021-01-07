@@ -8,6 +8,7 @@
         <link  rel="stylesheet" href="/css/app.css">
     </head>
     <body>
+        @csrf
         <div id="root"></div>
         <script src="/js/app.js"></script>
     </body>

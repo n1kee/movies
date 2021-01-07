@@ -8,6 +8,11 @@ class MoviesController extends Controller
 {
 	public $pageSize = 10;
 
+	public function __construct()
+	{
+		$this->middleware('auth');
+	}
+
     function get() {
 	    $movies = Movie::select("id", "title")
 	        ->paginate($this->pageSize);

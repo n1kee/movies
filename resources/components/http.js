@@ -8,6 +8,7 @@ export default function http(path, params, method, headers) {
     const isGetReq = method.match(/get/i);
 
     if (isGetReq) path += "?" + new URLSearchParams(params);
+    params._token = document.querySelector('[name="_token"]').value;
     return fetch(
         `/api${path}`,
         {

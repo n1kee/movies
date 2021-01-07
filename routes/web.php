@@ -14,6 +14,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::prefix('api')->group(function () {
+
+	Route::post('/login', "LoginController@authenticate")->name("login");
+
 	Route::get('/movies', "MoviesController@get");
 
 	Route::get('/movies/{id}', "MoviesController@getById")
