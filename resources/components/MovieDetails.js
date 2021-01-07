@@ -50,7 +50,6 @@ class MovieDetails extends React.Component {
     render() {
         return (
             <React.Fragment>
-                <div>{JSON.stringify(this.context)}</div>
                 <table className={this.state.formClassName}>
                     <tbody>
                         <tr>
