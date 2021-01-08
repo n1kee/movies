@@ -23,7 +23,6 @@ export default function http(path, params, method, headers) {
         },
     ).then(res => {
         if (res.redirected) {
-            console.log("LOGIN RES", res);
             history.push(new URL(res.url).pathname);
         } else if (res.status !== 200) {
             switch (res.status) {

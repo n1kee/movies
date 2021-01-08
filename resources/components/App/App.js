@@ -11,7 +11,6 @@ class App extends React.Component {
         imgHost: "https://image.tmdb.org/t/p/w300/",
         updateGlobals: (state, cb) => {
             this.setState(state, () => {
-                console.log("updateGlobals", state, this.state.isLoading);
                 if (cb) cb();
             });
         },
@@ -27,7 +26,6 @@ class App extends React.Component {
         return (
             <div className="App">
                 <AppContext.Provider value={this.state}>
-                    <div>$${this.state.userName}$$</div>
                     <div className={this.state.isLoading ? "invisible" : ""}>
                         <div className={this.state.userName ? "abc" : "invisible"}>
                             <Links></Links>

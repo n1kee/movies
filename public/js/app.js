@@ -14316,7 +14316,6 @@ var App = /*#__PURE__*/function (_React$Component) {
       imgHost: "https://image.tmdb.org/t/p/w300/",
       updateGlobals: function updateGlobals(state, cb) {
         _this.setState(state, function () {
-          console.log("updateGlobals", state, _this.state.isLoading);
           if (cb) cb();
         });
       }
@@ -14341,8 +14340,6 @@ var App = /*#__PURE__*/function (_React$Component) {
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_globals__WEBPACK_IMPORTED_MODULE_4__.AppContext.Provider, {
           value: this.state,
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-            children: ["$$", this.state.userName, "$$"]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
             className: this.state.isLoading ? "invisible" : "",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
               className: this.state.userName ? "abc" : "invisible",
@@ -14579,15 +14576,19 @@ var Likes = /*#__PURE__*/function (_Component) {
     key: "render",
     value: function render() {
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_MovieList_MovieList__WEBPACK_IMPORTED_MODULE_3__.default, {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
+            className: "float-right",
+            to: "/",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
+              className: "btn btn-info",
+              children: "Close"
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+            className: "clearfix"
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_MovieList_MovieList__WEBPACK_IMPORTED_MODULE_3__.default, {
           resource: "/movies/likes"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
-          className: "float-right",
-          to: "/",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
-            className: "btn btn-info",
-            children: "Close"
-          })
         })]
       });
     }
@@ -14991,7 +14992,18 @@ var MovieDetails = /*#__PURE__*/function (_Component) {
           _this$state$movie5;
 
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react__WEBPACK_IMPORTED_MODULE_2__.Fragment, {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.Link, {
+            className: "float-right",
+            to: "/",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
+              className: "btn btn-info",
+              children: "Close"
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+            className: "clearfix"
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
           className: "float-left",
           children: this.state.movie && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("img", {
             src: this.context.imgHost + ((_this$state$movie = this.state.movie) === null || _this$state$movie === void 0 ? void 0 : _this$state$movie.img),
@@ -15029,18 +15041,6 @@ var MovieDetails = /*#__PURE__*/function (_Component) {
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
                 children: (_this$state$movie5 = this.state.movie) === null || _this$state$movie5 === void 0 ? void 0 : _this$state$movie5.rating
               })]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("tr", {
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
-                colSpan: "2",
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.Link, {
-                  className: "float-right",
-                  to: "/",
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
-                    className: "btn btn-info",
-                    children: "Close"
-                  })
-                })
-              })
             })]
           })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_toastify__WEBPACK_IMPORTED_MODULE_7__.ToastContainer, {})]
@@ -15158,13 +15158,11 @@ var MovieList = /*#__PURE__*/function (_Component) {
   _createClass(MovieList, [{
     key: "onItemClick",
     value: function onItemClick(id) {
-      console.log("onItemClick", id);
       _history__WEBPACK_IMPORTED_MODULE_4__.default.push("/movies/" + id);
     }
   }, {
     key: "onLikeBtnClick",
     value: function onLikeBtnClick(evt, movie) {
-      console.log("onLikeBtnClick", movie);
       evt.stopPropagation();
 
       if (Number.isInteger(movie.like_id)) {
@@ -15179,7 +15177,6 @@ var MovieList = /*#__PURE__*/function (_Component) {
       var _this2 = this;
 
       (0,_http__WEBPACK_IMPORTED_MODULE_3__.default)("/movies/".concat(movie.id, "/like"), {}, "POST").then(function (res) {
-        console.log("%%%");
         movie.like_id = +res.data;
         var updatedItems = [].slice.call(_this2.state.items);
 
@@ -15194,7 +15191,6 @@ var MovieList = /*#__PURE__*/function (_Component) {
       var _this3 = this;
 
       (0,_http__WEBPACK_IMPORTED_MODULE_3__.default)("/movies/unlike/".concat(movie.like_id), {}, "POST").then(function (res) {
-        console.log("%%%");
         movie.like_id = null;
         var updatedItems = [].slice.call(_this3.state.items);
 
@@ -15215,8 +15211,6 @@ var MovieList = /*#__PURE__*/function (_Component) {
         page: page + 1
       };
       (0,_http__WEBPACK_IMPORTED_MODULE_3__.default)(this.props.resource || '/movies', params).then(function (res) {
-        console.log("%%%");
-
         _this4.setState({
           page: page,
           items: res.data.movies || [],
@@ -15240,6 +15234,7 @@ var MovieList = /*#__PURE__*/function (_Component) {
 
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react__WEBPACK_IMPORTED_MODULE_2__.Fragment, {
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_material_ui_core_Table__WEBPACK_IMPORTED_MODULE_7__.default, {
+          className: "movie-list",
           "aria-label": "simple table",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_material_ui_core_TableHead__WEBPACK_IMPORTED_MODULE_8__.default, {
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_material_ui_core_TableRow__WEBPACK_IMPORTED_MODULE_9__.default, {
@@ -15368,7 +15363,6 @@ function http(path, params, method, headers) {
     var _res$headers$get;
 
     if (res.redirected) {
-      console.log("LOGIN RES", res);
       _history__WEBPACK_IMPORTED_MODULE_0__.default.push(new URL(res.url).pathname);
     } else if (res.status !== 200) {
       switch (res.status) {
@@ -15529,7 +15523,6 @@ var routes = [{
     var csrfToken = params.match.params.userToken;
     document.querySelector('[name="_token"]').value = csrfToken;
     (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
-      console.log("csrfToken", csrfToken);
       appContext.updateGlobals({
         userName: params.match.params.userName
       }, function () {
@@ -15549,7 +15542,6 @@ var routes = [{
     var appContext = (0,react__WEBPACK_IMPORTED_MODULE_1__.useContext)(_globals__WEBPACK_IMPORTED_MODULE_8__.AppContext);
     (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
       (0,_http__WEBPACK_IMPORTED_MODULE_7__.default)("/logout", {}, "POST").then(function (res) {
-        console.log("%%%");
         appContext.updateGlobals({
           userName: ""
         });

@@ -10786,6 +10786,10 @@ h3 {
   padding: 16px;
 }
 
+.movie-list td {
+  cursor: pointer;
+}
+
 .movie-details {
   max-width: 600px;
 }
@@ -10832,5 +10836,7 @@ code {
 }
 
 .content {
+  position: relative;
+  max-width: 700px;
   margin: 0 auto;
 }

@@ -7,10 +7,13 @@ class Likes extends Component {
     render() {
         return (
           <React.Fragment>
+              <div>
+                  <Link className="float-right" to="/">
+                      <button className="btn btn-info">Close</button>
+                  </Link>
+                  <div className="clearfix"></div>
+              </div>
               <MovieList resource="/movies/likes"></MovieList>
-              <Link className="float-right" to="/">
-                  <button className="btn btn-info">Close</button>
-              </Link>
           </React.Fragment>
         );
     }

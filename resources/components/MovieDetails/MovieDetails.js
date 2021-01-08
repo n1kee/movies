@@ -48,6 +48,12 @@ class MovieDetails extends Component {
     render() {
         return (
             <React.Fragment>
+                <div>
+                    <Link className="float-right" to="/">
+                        <button className="btn btn-info">Close</button>
+                    </Link>
+                    <div className="clearfix"></div>
+                </div>
                 <div className="float-left">
                     {
                         this.state.movie &&
@@ -75,13 +81,6 @@ class MovieDetails extends Component {
                         <tr>
                             <td>Rating:</td>
                             <td>{this.state.movie?.rating}</td>
-                        </tr>
-                        <tr>
-                            <td colSpan="2">
-                                <Link className="float-right" to="/">
-                                    <button className="btn btn-info">Close</button>
-                                </Link>
-                            </td>
                         </tr>
                     </tbody>
                 </table>

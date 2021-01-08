@@ -26,12 +26,10 @@ class MovieList extends Component {
     };
 
     onItemClick(id) {
-        console.log("onItemClick", id);
         history.push("/movies/" + id);
     }
 
     onLikeBtnClick(evt, movie) {
-        console.log("onLikeBtnClick", movie);
         evt.stopPropagation();
         if (Number.isInteger(movie.like_id)) {
             this.unlikeMovie(movie);
@@ -42,7 +40,6 @@ class MovieList extends Component {
 
     likeMovie(movie) {
         http(`/movies/${movie.id}/like`, {}, "POST").then(res => {
-            console.log("%%%");
             movie.like_id = +res.data;
             const updatedItems = [].slice.call(this.state.items);
             this.setState({ items: updatedItems });
@@ -51,7 +48,6 @@ class MovieList extends Component {
 
    unlikeMovie(movie) {
         http(`/movies/unlike/${movie.like_id}`, {}, "POST").then(res => {
-            console.log("%%%");
             movie.like_id = null;
             const updatedItems = [].slice.call(this.state.items);
             this.setState({ items: updatedItems });
@@ -62,7 +58,6 @@ class MovieList extends Component {
         this.context.updateGlobals({ isLoading: true });
         const params = { page: page + 1, };
         http(this.props.resource || '/movies', params).then(res => {
-            console.log("%%%", );
             this.setState({
                 page,
                 items: res.data.movies || [],
@@ -80,7 +75,7 @@ class MovieList extends Component {
     render() {
         return (
             <React.Fragment>
-                <Table aria-label="simple table">
+                <Table className="movie-list" aria-label="simple table">
                     <TableHead>
                         <TableRow>
                             <TableCell><b>Name</b></TableCell>

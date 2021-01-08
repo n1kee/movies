@@ -34,7 +34,6 @@ const routes = [
             document.querySelector('[name="_token"]')
                 .value = csrfToken;
             useEffect(() => {
-                console.log("csrfToken", csrfToken);
                 appContext.updateGlobals({
                         userName: params.match.params.userName
                     }, () => history.push("/"));
@@ -54,7 +53,6 @@ const routes = [
             const appContext = useContext(AppContext);
             useEffect(() => {
                 http(`/logout`, {}, "POST").then(res => {
-                    console.log("%%%");
                     appContext.updateGlobals({
                         userName: ""
                     });
