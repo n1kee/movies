@@ -17,6 +17,8 @@ Route::prefix('api')->group(function () {
 
 	Route::post('/login', "LoginController@authenticate")->name("login");
 
+	Route::post('/logout', "LoginController@logout")->name("logout");
+
 	Route::get('/movies', "MoviesController@get");
 
 	Route::get('/movies/{id}', "MoviesController@getById")

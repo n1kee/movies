@@ -13,7 +13,7 @@ export default function http(path, params, method, headers) {
         `/api${path}`,
         {
             method: method,
-            //credentials: "same-origin",
+            credentials: "same-origin",
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
@@ -25,6 +25,7 @@ export default function http(path, params, method, headers) {
         if (res.status !== 200) {
             switch (res.status) {
                 case 401:
+                case 419:
                     setTimeout(() => history.push('/login'), 0);
                     break;
                 default:

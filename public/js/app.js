@@ -14598,8 +14598,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var _globals__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../globals */ "./resources/components/globals.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 
@@ -14628,7 +14627,6 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
-
 var Links = /*#__PURE__*/function (_React$Component) {
   _inherits(Links, _React$Component);
 
@@ -14646,11 +14644,11 @@ var Links = /*#__PURE__*/function (_React$Component) {
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
         className: "links",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.Link, {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.Link, {
             to: "/likes",
             children: "My likes"
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.Link, {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.Link, {
           to: "/logout",
           children: "Logout"
         })]
@@ -14794,7 +14792,7 @@ var LoginForm = /*#__PURE__*/function (_Component) {
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("label", {
                     htmlFor: "login-input",
-                    children: "Username"
+                    children: "Login"
                   })
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
@@ -14971,9 +14969,6 @@ var MovieDetails = /*#__PURE__*/function (_Component) {
     value: function componentDidMount() {
       this.getMovie();
     }
-  }, {
-    key: "componentWillUnmount",
-    value: function componentWillUnmount() {}
   }, {
     key: "render",
     value: function render() {
@@ -15352,7 +15347,7 @@ function http(path, params, method, headers) {
   params._token = document.querySelector('[name="_token"]').value;
   return fetch("/api".concat(path), {
     method: method,
-    //credentials: "same-origin",
+    credentials: "same-origin",
     headers: _objectSpread({
       'Content-Type': 'application/json',
       'Accept': 'application/json'
@@ -15364,6 +15359,7 @@ function http(path, params, method, headers) {
     if (res.status !== 200) {
       switch (res.status) {
         case 401:
+        case 419:
           setTimeout(function () {
             return _history__WEBPACK_IMPORTED_MODULE_0__.default.push('/login');
           }, 0);
@@ -15478,8 +15474,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _MovieDetails_MovieDetails__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./MovieDetails/MovieDetails */ "./resources/components/MovieDetails/MovieDetails.js");
 /* harmony import */ var _LoginForm__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./LoginForm */ "./resources/components/LoginForm.js");
 /* harmony import */ var _history__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./history */ "./resources/components/history.js");
-/* harmony import */ var _globals__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./globals */ "./resources/components/globals.js");
-/* harmony import */ var _Likes__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./Likes */ "./resources/components/Likes.js");
+/* harmony import */ var _Likes__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Likes */ "./resources/components/Likes.js");
+/* harmony import */ var _http__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./http */ "./resources/components/http.js");
 
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
@@ -15504,7 +15500,7 @@ var routes = [{
 }, {
   name: "Likes",
   path: "/likes",
-  component: _Likes__WEBPACK_IMPORTED_MODULE_7__.default
+  component: _Likes__WEBPACK_IMPORTED_MODULE_6__.default
 }, {
   name: "Login",
   path: "/login",
@@ -15517,10 +15513,11 @@ var routes = [{
   name: "Logout",
   path: "/logout",
   component: function component() {
-    var credentialsContext = (0,react__WEBPACK_IMPORTED_MODULE_1__.useContext)(_globals__WEBPACK_IMPORTED_MODULE_6__.AppContext);
     (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
-      credentialsContext.updateCredentials(null);
-      _history__WEBPACK_IMPORTED_MODULE_5__.default.push("/");
+      (0,_http__WEBPACK_IMPORTED_MODULE_7__.default)("/logout", {}, "POST").then(function (res) {
+        console.log("%%%");
+        _history__WEBPACK_IMPORTED_MODULE_5__.default.push("/");
+      });
     });
     return null;
   }

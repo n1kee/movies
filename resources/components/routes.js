@@ -1,11 +1,11 @@
-import React, {useContext, useEffect} from 'react';
+import React, {useEffect} from 'react';
 import {Link, Route, Switch} from 'react-router-dom';
 import MovieList from "./MovieList/MovieList";
 import MovieDetails from "./MovieDetails/MovieDetails";
 import LoginForm from "./LoginForm";
 import history from "./history";
-import {AppContext} from "./globals";
 import Likes from "./Likes";
+import http from "./http";
 
 const routes = [
     {
@@ -33,11 +33,12 @@ const routes = [
         name: "Logout",
         path: "/logout",
         component: function () {
-            const credentialsContext = useContext(AppContext);
             useEffect(() => {
-                credentialsContext.updateCredentials(null);
 
-                history.push("/");
+                http(`/logout`, {}, "POST").then(res => {
+                    console.log("%%%");
+                    history.push("/");
+                });
             });
 
             return null;

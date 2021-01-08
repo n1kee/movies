@@ -48,7 +48,7 @@ class LoginForm extends Component {
                             <td colSpan="2">Login</td>
                         </tr>
                         <tr>
-                            <td><label htmlFor="login-input">Username</label></td>
+                            <td><label htmlFor="login-input">Login</label></td>
                             <td>
                                 <input
                                     id="login-input"

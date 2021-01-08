@@ -45,9 +45,6 @@ class MovieDetails extends Component {
         this.getMovie();
     }
 
-    componentWillUnmount() {
-    }
-
     render() {
         return (
             <React.Fragment>

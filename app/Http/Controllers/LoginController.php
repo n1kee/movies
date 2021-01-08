@@ -6,6 +6,17 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
+	public function logout()
+	{
+		Auth::logout();
+
+		request()->session()->invalidate();
+
+		request()->session()->regenerateToken();
+
+		return redirect('/');
+	}
+
     function authenticate() {
 	    $credentials = \request()->only('email', 'password');
 
