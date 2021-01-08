@@ -24,9 +24,11 @@ class MoviesController extends Controller
 			    ->where("likes.user_id", "=", Auth::user()->id);
 	    };
 	    if ($getLikes) {
-		    $movies = $movies->join("likes", $joinSubQuery);
+		    $movies = $movies->join("likes", $joinSubQuery)
+			    ->orderBy("likes.created_at", "desc");
 	    } else {
-		    $movies = $movies->leftJoin("likes", $joinSubQuery);
+		    $movies = $movies->leftJoin("likes", $joinSubQuery)
+			    ->orderBy("movies.created_at", "desc");
 	    }
 	    $movies = $movies->paginate($this->pageSize);
 	    return response()->json([

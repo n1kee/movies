@@ -14565,7 +14565,7 @@ var Likes = /*#__PURE__*/function (_Component) {
     value: function render() {
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_MovieList_MovieList__WEBPACK_IMPORTED_MODULE_3__.default, {
-          url: "/movies/likes"
+          resource: "/movies/likes"
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
           className: "float-right",
           to: "/",
@@ -15208,7 +15208,7 @@ var MovieList = /*#__PURE__*/function (_Component) {
       var params = {
         page: page + 1
       };
-      (0,_http__WEBPACK_IMPORTED_MODULE_3__.default)(this.props.url || '/movies', params).then(function (res) {
+      (0,_http__WEBPACK_IMPORTED_MODULE_3__.default)(this.props.resource || '/movies', params).then(function (res) {
         console.log("%%%");
 
         _this4.setState({

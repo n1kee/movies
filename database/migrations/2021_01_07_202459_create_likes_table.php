@@ -15,7 +15,7 @@ class CreateLikesTable extends Migration
 	{
 		Schema::create('likes', function (Blueprint $table) {
 			$table->id();
-			$table->timestamps();
+			$table->timestamp("created_at");
 			$table->unsignedBigInteger("user_id");
 			$table->unsignedBigInteger("movie_id");
 			$table->index('user_id');
@@ -32,6 +32,6 @@ class CreateLikesTable extends Migration
 	 */
 	public function down()
 	{
-		Schema::dropIfExists('user_movie');
+		Schema::dropIfExists('likes');
 	}
 }

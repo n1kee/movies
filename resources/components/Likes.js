@@ -7,7 +7,7 @@ class Likes extends Component {
     render() {
         return (
           <React.Fragment>
-              <MovieList url="/movies/likes"></MovieList>
+              <MovieList resource="/movies/likes"></MovieList>
               <Link className="float-right" to="/">
                   <button className="btn btn-info">Close</button>
               </Link>

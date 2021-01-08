@@ -6,7 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Movie extends Model
 {
-    public $timestamps = false;
+	const UPDATED_AT = null;
+	public $timestamps = [ "created_at" ];
 
 	public function likes()
 	{

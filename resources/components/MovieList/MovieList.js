@@ -61,7 +61,7 @@ class MovieList extends Component {
     changePage(page) {
         this.context.updateGlobals({ isLoading: true });
         const params = { page: page + 1, };
-        http(this.props.url || '/movies', params).then(res => {
+        http(this.props.resource || '/movies', params).then(res => {
             console.log("%%%", );
             this.setState({
                 page,
