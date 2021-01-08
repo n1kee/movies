@@ -3,9 +3,9 @@ import {Link, Route, Switch} from 'react-router-dom';
 import MovieList from "./MovieList/MovieList";
 import MovieDetails from "./MovieDetails/MovieDetails";
 import LoginForm from "./LoginForm";
-import UserProfile from "./UserProfile";
 import history from "./history";
 import {AppContext} from "./globals";
+import Likes from "./Likes";
 
 const routes = [
     {
@@ -13,6 +13,11 @@ const routes = [
         name: "Home",
         exact: true,
         component: MovieList,
+    },
+    {
+        name: "Likes",
+        path: "/likes",
+        component: Likes,
     },
     {
         name: "Login",
@@ -23,11 +28,6 @@ const routes = [
         name: "Movie details",
         path: "/movies/:movieId",
         component: MovieDetails,
-    },
-    {
-        name: "Profile",
-        path: "/profile",
-        component: UserProfile,
     },
     {
         name: "Logout",

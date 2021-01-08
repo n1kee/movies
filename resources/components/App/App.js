@@ -8,7 +8,6 @@ class App extends React.Component {
     state = {
         isLoading: false,
         imgHost: "https://image.tmdb.org/t/p/w300/",
-        userName: localStorage.getItem("user_name"),
         updateGlobals: state => {
             this.setState(state, () =>  console.log("updateGlobals", state, this.state.isLoading));
         },

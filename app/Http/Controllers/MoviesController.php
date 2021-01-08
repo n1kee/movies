@@ -15,14 +15,20 @@ class MoviesController extends Controller
 		$this->middleware('auth');
 	}
 
-    function get() {
-	    $movies = Movie::select("movies.id as id", "title", "likes.id as is_liked")
-		    ->leftJoin("likes", function($q) {
-			    $q->select("*")
-				    ->from("likes")
-				    ->where("likes.user_id", "=", Auth::user()->id);
-		    })
-	        ->paginate($this->pageSize);
+    function get($getLikes = false) {
+	    $movies = Movie::select("movies.id as id", "title", "likes.id as like_id");
+	    $joinSubQuery = function($q) {
+		    $q->on("likes.movie_id", "=", "movies.id")
+			    ->select("*")
+			    ->from("likes")
+			    ->where("likes.user_id", "=", Auth::user()->id);
+	    };
+	    if ($getLikes) {
+		    $movies = $movies->join("likes", $joinSubQuery);
+	    } else {
+		    $movies = $movies->leftJoin("likes", $joinSubQuery);
+	    }
+	    $movies = $movies->paginate($this->pageSize);
 	    return response()->json([
 		    "movies" => $movies->items(),
 		    "movies_total" => $movies->total(),
@@ -35,12 +41,16 @@ class MoviesController extends Controller
 		return response()->json($movie);
 	}
 
+	function getLikes() {
+		return $this->get(true);
+	}
 
-	function like($id, $userId) {
-		$record = new Like;
-		$record->movie_id = $id;
-		$record->user_id = $userId;
-		$record->save();
+	function like($id) {
+		$like = new Like;
+		$like->movie_id = $id;
+		$like->user_id = Auth::user()->id;
+		$like->save();
+		return response($like->id);
 	}
 
 	function unlike($id) {

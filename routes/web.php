@@ -22,7 +22,9 @@ Route::prefix('api')->group(function () {
 	Route::get('/movies/{id}', "MoviesController@getById")
 		->where('id', '[0-9]+');
 
-	Route::get('/movies/{id}/like/{userId}', "MoviesController@like")
+	Route::get('/movies/likes', "MoviesController@getLikes");
+
+	Route::post('/movies/{id}/like', "MoviesController@like")
 		->where('id', '[0-9]+')
 		->where('userId', '[0-9]+');
 

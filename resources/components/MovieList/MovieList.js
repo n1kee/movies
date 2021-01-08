@@ -30,11 +30,39 @@ class MovieList extends Component {
         history.push("/movies/" + id);
     }
 
+    onLikeBtnClick(evt, movie) {
+        console.log("onLikeBtnClick", movie);
+        evt.stopPropagation();
+        if (Number.isInteger(movie.like_id)) {
+            this.unlikeMovie(movie);
+        } else {
+            this.likeMovie(movie);
+        }
+    }
+
+    likeMovie(movie) {
+        http(`/movies/${movie.id}/like`, {}, "POST").then(res => {
+            console.log("%%%");
+            movie.like_id = +res.data;
+            const updatedItems = [].slice.call(this.state.items);
+            this.setState({ items: updatedItems });
+        });
+    }
+
+   unlikeMovie(movie) {
+        http(`/movies/unlike/${movie.like_id}`, {}, "POST").then(res => {
+            console.log("%%%");
+            movie.like_id = null;
+            const updatedItems = [].slice.call(this.state.items);
+            this.setState({ items: updatedItems });
+        });
+    }
+
     changePage(page) {
         this.context.updateGlobals({ isLoading: true });
         const params = { page: page + 1, };
-        http('/movies', params).then(res => {
-            console.log("%%%");
+        http(this.props.url || '/movies', params).then(res => {
+            console.log("%%%", );
             this.setState({
                 page,
                 items: res.data.movies || [],
@@ -63,7 +91,11 @@ class MovieList extends Component {
                       {this.state.items.map(item => (
                           <TableRow key={item.id} onClick={() => this.onItemClick(item.id)}>
                               <TableCell>{item.title}</TableCell>
-                              <TableCell></TableCell>
+                              <TableCell className="float-right">
+                                  <button onClick={event => this.onLikeBtnClick(event, item)}>
+                                      {Number.isInteger(item.like_id) ? "Unlike" : "Like"}
+                                  </button>
+                              </TableCell>
                           </TableRow>
                       ))}
                   </TableBody>
