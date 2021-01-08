@@ -6,20 +6,32 @@ import {AppContext} from "../globals";
 class App extends React.Component {
 
     state = {
+        userName: "",
         isLoading: false,
         imgHost: "https://image.tmdb.org/t/p/w300/",
-        updateGlobals: state => {
-            this.setState(state, () =>  console.log("updateGlobals", state, this.state.isLoading));
+        updateGlobals: (state, cb) => {
+            this.setState(state, () => {
+                console.log("updateGlobals", state, this.state.isLoading);
+                if (cb) cb();
+            });
         },
     };
+
+    componentDidMount() {
+        const userNameInput = document.querySelector('[name="user_name"]');
+        this.setState({ userName: userNameInput.value });
+    }
 
     render() {
 
         return (
             <div className="App">
                 <AppContext.Provider value={this.state}>
+                    <div>$${this.state.userName}$$</div>
                     <div className={this.state.isLoading ? "invisible" : ""}>
-                        <Links></Links>
+                        <div className={this.state.userName ? "abc" : "invisible"}>
+                            <Links></Links>
+                        </div>
                         <div className="content"><RouteCfg/></div>
                     </div>
                     <div className="text-center fixed-top">

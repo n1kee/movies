@@ -14311,11 +14311,13 @@ var App = /*#__PURE__*/function (_React$Component) {
     _this = _super.call.apply(_super, [this].concat(args));
 
     _defineProperty(_assertThisInitialized(_this), "state", {
+      userName: "",
       isLoading: false,
       imgHost: "https://image.tmdb.org/t/p/w300/",
-      updateGlobals: function updateGlobals(state) {
+      updateGlobals: function updateGlobals(state, cb) {
         _this.setState(state, function () {
-          return console.log("updateGlobals", state, _this.state.isLoading);
+          console.log("updateGlobals", state, _this.state.isLoading);
+          if (cb) cb();
         });
       }
     });
@@ -14324,6 +14326,14 @@ var App = /*#__PURE__*/function (_React$Component) {
   }
 
   _createClass(App, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var userNameInput = document.querySelector('[name="user_name"]');
+      this.setState({
+        userName: userNameInput.value
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
@@ -14331,8 +14341,13 @@ var App = /*#__PURE__*/function (_React$Component) {
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_globals__WEBPACK_IMPORTED_MODULE_4__.AppContext.Provider, {
           value: this.state,
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+            children: ["$$", this.state.userName, "$$"]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
             className: this.state.isLoading ? "invisible" : "",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Links_Links__WEBPACK_IMPORTED_MODULE_3__.default, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+              className: this.state.userName ? "abc" : "invisible",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Links_Links__WEBPACK_IMPORTED_MODULE_3__.default, {})
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
               className: "content",
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_routes__WEBPACK_IMPORTED_MODULE_2__.default, {})
             })]
@@ -14759,12 +14774,8 @@ var LoginForm = /*#__PURE__*/function (_Component) {
           isLoading: false
         };
 
-        if (res.response.status === 200) {
-          _history__WEBPACK_IMPORTED_MODULE_4__.default.push('/');
-        } else if (res.response.status === 401) {
-          _this2.setState({
-            errorText: "Wrong username or password!"
-          });
+        if (res.response.status === 200) {//history.push('/');
+        } else if (res.response.status === 401) {//this.setState({ errorText: "Wrong username or password!" });
         }
 
         _this2.context.updateGlobals(globalContextUpd);
@@ -15356,7 +15367,10 @@ function http(path, params, method, headers) {
   }).then(function (res) {
     var _res$headers$get;
 
-    if (res.status !== 200) {
+    if (res.redirected) {
+      console.log("LOGIN RES", res);
+      _history__WEBPACK_IMPORTED_MODULE_0__.default.push(new URL(res.url).pathname);
+    } else if (res.status !== 200) {
       switch (res.status) {
         case 401:
         case 419:
@@ -15468,14 +15482,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
 /* harmony import */ var _MovieList_MovieList__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./MovieList/MovieList */ "./resources/components/MovieList/MovieList.js");
 /* harmony import */ var _MovieDetails_MovieDetails__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./MovieDetails/MovieDetails */ "./resources/components/MovieDetails/MovieDetails.js");
 /* harmony import */ var _LoginForm__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./LoginForm */ "./resources/components/LoginForm.js");
 /* harmony import */ var _history__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./history */ "./resources/components/history.js");
 /* harmony import */ var _Likes__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Likes */ "./resources/components/Likes.js");
 /* harmony import */ var _http__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./http */ "./resources/components/http.js");
+/* harmony import */ var _globals__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./globals */ "./resources/components/globals.js");
 
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
@@ -15483,6 +15498,7 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 
@@ -15506,6 +15522,23 @@ var routes = [{
   path: "/login",
   component: _LoginForm__WEBPACK_IMPORTED_MODULE_4__.default
 }, {
+  name: "Successfully logged in",
+  path: "/login-success/:userName/:userToken",
+  component: function component(params) {
+    var appContext = (0,react__WEBPACK_IMPORTED_MODULE_1__.useContext)(_globals__WEBPACK_IMPORTED_MODULE_8__.AppContext);
+    var csrfToken = params.match.params.userToken;
+    document.querySelector('[name="_token"]').value = csrfToken;
+    (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
+      console.log("csrfToken", csrfToken);
+      appContext.updateGlobals({
+        userName: params.match.params.userName
+      }, function () {
+        return _history__WEBPACK_IMPORTED_MODULE_5__.default.push("/");
+      });
+    });
+    return null;
+  }
+}, {
   name: "Movie details",
   path: "/movies/:movieId",
   component: _MovieDetails_MovieDetails__WEBPACK_IMPORTED_MODULE_3__.default
@@ -15513,10 +15546,13 @@ var routes = [{
   name: "Logout",
   path: "/logout",
   component: function component() {
+    var appContext = (0,react__WEBPACK_IMPORTED_MODULE_1__.useContext)(_globals__WEBPACK_IMPORTED_MODULE_8__.AppContext);
     (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
       (0,_http__WEBPACK_IMPORTED_MODULE_7__.default)("/logout", {}, "POST").then(function (res) {
         console.log("%%%");
-        _history__WEBPACK_IMPORTED_MODULE_5__.default.push("/");
+        appContext.updateGlobals({
+          userName: ""
+        });
       });
     });
     return null;
@@ -15524,14 +15560,14 @@ var routes = [{
 }];
 function LinkList() {
   return routes.map(function (rt) {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.Link, {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_9__.Link, {
       to: rt.path,
       children: rt.name
     }, rt.name);
   });
 }
 function RouteCfg() {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_9__.Switch, {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_10__.Switch, {
     children: routes.map(function (route, i) {
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(RouteWithSubRoutes, _objectSpread({}, route), i);
     })
@@ -15542,7 +15578,7 @@ function RouteCfg() {
 // prop to the component it renders.
 
 function RouteWithSubRoutes(route) {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_9__.Route, {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_10__.Route, {
     path: route.path,
     render: function render(props) {
       return (

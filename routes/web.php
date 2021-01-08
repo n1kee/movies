@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use \Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('api')->group(function () {
 
-	Route::post('/login', "LoginController@authenticate")->name("login");
+	Route::post('/login', "LoginController@login")->name("login");
 
 	Route::post('/logout', "LoginController@logout")->name("logout");
 
@@ -35,5 +36,7 @@ Route::prefix('api')->group(function () {
 });
 
 Route::get('/{any}',  function () {
-	return view('welcome');
+	return view('welcome', [
+		"userName" => Auth::user() ? Auth::user()->name : "",
+	]);
 })->where('any', '^(?!api).*$');

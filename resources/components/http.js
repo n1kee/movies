@@ -22,7 +22,10 @@ export default function http(path, params, method, headers) {
             body: isGetReq ? null : JSON.stringify(params),
         },
     ).then(res => {
-        if (res.status !== 200) {
+        if (res.redirected) {
+            console.log("LOGIN RES", res);
+            history.push(new URL(res.url).pathname);
+        } else if (res.status !== 200) {
             switch (res.status) {
                 case 401:
                 case 419:

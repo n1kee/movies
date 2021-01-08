@@ -17,13 +17,15 @@ class LoginController extends Controller
 		return redirect('/');
 	}
 
-    function authenticate() {
+    function login() {
 	    $credentials = \request()->only('email', 'password');
 
 	    if (Auth::attempt($credentials)) {
 		    \request()->session()->regenerate();
 
-		    return redirect()->intended('dashboard');
+		    return redirect(
+            "/login-success/". Auth::user()->name . "/" . csrf_token()
+		    );
 	    }
 
 	    return back()->withErrors([

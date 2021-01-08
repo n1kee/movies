@@ -9,6 +9,7 @@
     </head>
     <body>
         @csrf
+        <input class="d-none" name="user_name" value="{{$userName}}">
         <div id="root"></div>
         <script src="/js/app.js"></script>
     </body>

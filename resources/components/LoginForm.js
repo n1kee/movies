@@ -27,9 +27,9 @@ class LoginForm extends Component {
         .then(res => {
             const globalContextUpd = { isLoading: false };
             if (res.response.status === 200) {
-                history.push('/');
+                //history.push('/');
             } else if (res.response.status === 401) {
-                this.setState({ errorText: "Wrong username or password!" });
+                //this.setState({ errorText: "Wrong username or password!" });
             }
             this.context.updateGlobals(globalContextUpd);
         });

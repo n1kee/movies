@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useContext, useEffect} from 'react';
 import {Link, Route, Switch} from 'react-router-dom';
 import MovieList from "./MovieList/MovieList";
 import MovieDetails from "./MovieDetails/MovieDetails";
@@ -6,6 +6,7 @@ import LoginForm from "./LoginForm";
 import history from "./history";
 import Likes from "./Likes";
 import http from "./http";
+import {AppContext} from "./globals";
 
 const routes = [
     {
@@ -25,6 +26,23 @@ const routes = [
         component: LoginForm,
     },
     {
+        name: "Successfully logged in",
+        path: "/login-success/:userName/:userToken",
+        component: function (params) {
+            const appContext = useContext(AppContext);
+            const csrfToken = params.match.params.userToken;
+            document.querySelector('[name="_token"]')
+                .value = csrfToken;
+            useEffect(() => {
+                console.log("csrfToken", csrfToken);
+                appContext.updateGlobals({
+                        userName: params.match.params.userName
+                    }, () => history.push("/"));
+            });
+            return null;
+        },
+    },
+    {
         name: "Movie details",
         path: "/movies/:movieId",
         component: MovieDetails,
@@ -33,14 +51,15 @@ const routes = [
         name: "Logout",
         path: "/logout",
         component: function () {
+            const appContext = useContext(AppContext);
             useEffect(() => {
-
                 http(`/logout`, {}, "POST").then(res => {
                     console.log("%%%");
-                    history.push("/");
+                    appContext.updateGlobals({
+                        userName: ""
+                    });
                 });
             });
-
             return null;
         },
     },
