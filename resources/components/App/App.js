@@ -10,13 +10,12 @@ class App extends React.Component {
         isLoading: false,
         imgHost: "https://image.tmdb.org/t/p/w300/",
         updateGlobals: (state, cb) => {
-            this.setState(state, () => {
-                if (cb) cb();
-            });
+            this.setState(state, () => cb ? cb() : null);
         },
     };
 
     componentDidMount() {
+        // Set user name in the global context.
         const userNameInput = document.querySelector('[name="user_name"]');
         this.setState({ userName: userNameInput.value });
     }

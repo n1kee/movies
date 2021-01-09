@@ -10794,6 +10794,11 @@ h3 {
   max-width: 600px;
 }
 
+.login-form {
+  margin: 0 auto;
+  max-width: 335px;
+}
+
 button, [type=checkbox], [type=submit] {
   cursor: pointer;
 }

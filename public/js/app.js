@@ -14316,7 +14316,7 @@ var App = /*#__PURE__*/function (_React$Component) {
       imgHost: "https://image.tmdb.org/t/p/w300/",
       updateGlobals: function updateGlobals(state, cb) {
         _this.setState(state, function () {
-          if (cb) cb();
+          return cb ? cb() : null;
         });
       }
     });
@@ -14327,6 +14327,7 @@ var App = /*#__PURE__*/function (_React$Component) {
   _createClass(App, [{
     key: "componentDidMount",
     value: function componentDidMount() {
+      // Set user name in the global context.
       var userNameInput = document.querySelector('[name="user_name"]');
       this.setState({
         userName: userNameInput.value
@@ -14679,10 +14680,10 @@ var Links = /*#__PURE__*/function (_React$Component) {
 
 /***/ }),
 
-/***/ "./resources/components/LoginForm.js":
-/*!*******************************************!*\
-  !*** ./resources/components/LoginForm.js ***!
-  \*******************************************/
+/***/ "./resources/components/LoginForm/LoginForm.js":
+/*!*****************************************************!*\
+  !*** ./resources/components/LoginForm/LoginForm.js ***!
+  \*****************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -14691,13 +14692,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-/* harmony import */ var _App_App_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./App/App.css */ "./resources/components/App/App.css");
+/* harmony import */ var _App_App_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../App/App.css */ "./resources/components/App/App.css");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var _http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./http */ "./resources/components/http.js");
-/* harmony import */ var _history__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./history */ "./resources/components/history.js");
-/* harmony import */ var _Error__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Error */ "./resources/components/Error.js");
-/* harmony import */ var _globals__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./globals */ "./resources/components/globals.js");
-/* harmony import */ var _Component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./Component */ "./resources/components/Component.js");
+/* harmony import */ var _http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../http */ "./resources/components/http.js");
+/* harmony import */ var _Error__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../Error */ "./resources/components/Error.js");
+/* harmony import */ var _globals__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../globals */ "./resources/components/globals.js");
+/* harmony import */ var _Component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../Component */ "./resources/components/Component.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 
@@ -14724,7 +14724,6 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 
 
 
@@ -14760,6 +14759,12 @@ var LoginForm = /*#__PURE__*/function (_Component) {
 
   _createClass(LoginForm, [{
     key: "handleSubmit",
+
+    /**
+     * Handles the login form submit.
+     *
+     * @param event The form submit event.
+     */
     value: function handleSubmit(event) {
       var _this2 = this;
 
@@ -14775,8 +14780,10 @@ var LoginForm = /*#__PURE__*/function (_Component) {
           isLoading: false
         };
 
-        if (res.response.status === 200) {//history.push('/');
-        } else if (res.response.status === 401) {//this.setState({ errorText: "Wrong username or password!" });
+        if (res.response.status === 401) {
+          _this2.setState({
+            errorText: "Wrong username or password!"
+          });
         }
 
         _this2.context.updateGlobals(globalContextUpd);
@@ -14788,64 +14795,62 @@ var LoginForm = /*#__PURE__*/function (_Component) {
       var _this3 = this;
 
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react__WEBPACK_IMPORTED_MODULE_2__.Fragment, {
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("form", {
-          className: "form d-inline-block",
-          onSubmit: function onSubmit(evt) {
-            return _this3.handleSubmit(evt);
-          },
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("table", {
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("tbody", {
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("tr", {
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
-                  colSpan: "2",
-                  children: "Login"
-                })
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("tr", {
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("label", {
-                    htmlFor: "login-input",
-                    children: "Login"
-                  })
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
-                    id: "login-input",
-                    className: "form-control",
-                    onChange: function onChange(evt) {
-                      return _this3.setState({
-                        name: evt.target.value
-                      });
-                    }
-                  })
-                })]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("tr", {
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("label", {
-                    htmlFor: "pwd-input",
-                    children: "Password"
-                  })
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Error__WEBPACK_IMPORTED_MODULE_5__.default, {
-                    errorText: this.state.errorText,
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+          className: "login-form",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("form", {
+            className: "form d-inline-block",
+            onSubmit: function onSubmit(evt) {
+              return _this3.handleSubmit(evt);
+            },
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("table", {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("tbody", {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("tr", {
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("label", {
+                      htmlFor: "login-input",
+                      children: "Login"
+                    })
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
                     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
-                      id: "pwd-input",
+                      id: "login-input",
                       className: "form-control",
                       onChange: function onChange(evt) {
                         return _this3.setState({
-                          password: evt.target.value
+                          name: evt.target.value
                         });
                       }
                     })
+                  })]
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("tr", {
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("label", {
+                      htmlFor: "pwd-input",
+                      children: "Password"
+                    })
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Error__WEBPACK_IMPORTED_MODULE_4__.default, {
+                      errorText: this.state.errorText,
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
+                        id: "pwd-input",
+                        className: "form-control",
+                        onChange: function onChange(evt) {
+                          return _this3.setState({
+                            password: evt.target.value
+                          });
+                        }
+                      })
+                    })
+                  })]
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("tr", {
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
+                    colSpan: "2",
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
+                      type: "submit",
+                      value: "Submit"
+                    })
                   })
                 })]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("tr", {
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
-                  colSpan: "2",
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
-                    type: "submit",
-                    value: "Submit"
-                  })
-                })
-              })]
+              })
             })
           })
         })
@@ -14854,9 +14859,9 @@ var LoginForm = /*#__PURE__*/function (_Component) {
   }]);
 
   return LoginForm;
-}(_Component__WEBPACK_IMPORTED_MODULE_7__.default);
+}(_Component__WEBPACK_IMPORTED_MODULE_6__.default);
 
-_defineProperty(LoginForm, "contextType", _globals__WEBPACK_IMPORTED_MODULE_6__.AppContext);
+_defineProperty(LoginForm, "contextType", _globals__WEBPACK_IMPORTED_MODULE_5__.AppContext);
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (LoginForm);
 
@@ -14956,6 +14961,10 @@ var MovieDetails = /*#__PURE__*/function (_Component) {
     }
   }, {
     key: "getMovie",
+
+    /**
+     * Gets the movie data.
+     */
     value: function getMovie() {
       var _this2 = this;
 
@@ -15157,9 +15166,22 @@ var MovieList = /*#__PURE__*/function (_Component) {
 
   _createClass(MovieList, [{
     key: "onItemClick",
+
+    /**
+     * Shows a movie details page.
+     *
+     * @param id number The movie id.
+     */
     value: function onItemClick(id) {
       _history__WEBPACK_IMPORTED_MODULE_4__.default.push("/movies/" + id);
     }
+    /**
+     * Handles a click on a Like button.
+     *
+     * @param evt The click event.
+     * @param movie The movie data.
+     */
+
   }, {
     key: "onLikeBtnClick",
     value: function onLikeBtnClick(evt, movie) {
@@ -15171,6 +15193,12 @@ var MovieList = /*#__PURE__*/function (_Component) {
         this.likeMovie(movie);
       }
     }
+    /**
+     * Sends request to create a like for a movie.
+     *
+     * @param movie The movie data.
+     */
+
   }, {
     key: "likeMovie",
     value: function likeMovie(movie) {
@@ -15185,6 +15213,12 @@ var MovieList = /*#__PURE__*/function (_Component) {
         });
       });
     }
+    /**
+     * Sends request to remove a like for a movie.
+     *
+     * @param movie The movie data.
+     */
+
   }, {
     key: "unlikeMovie",
     value: function unlikeMovie(movie) {
@@ -15199,6 +15233,12 @@ var MovieList = /*#__PURE__*/function (_Component) {
         });
       });
     }
+    /**
+     * Changes the page of the movie table.
+     *
+     * @param page number The page number.
+     */
+
   }, {
     key: "changePage",
     value: function changePage(page) {
@@ -15345,6 +15385,16 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
+/**
+ * Makes http requests.
+ *
+ * @param path string The path of the request.
+ * @param params object The params of the request.
+ * @param method string The method of the request.
+ * @param headers object The headers of the request.
+ * @returns {Promise<Response | void>}
+ */
+
 function http(path, params, method, headers) {
   method = method || "GET";
   params = params || {};
@@ -15480,7 +15530,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
 /* harmony import */ var _MovieList_MovieList__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./MovieList/MovieList */ "./resources/components/MovieList/MovieList.js");
 /* harmony import */ var _MovieDetails_MovieDetails__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./MovieDetails/MovieDetails */ "./resources/components/MovieDetails/MovieDetails.js");
-/* harmony import */ var _LoginForm__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./LoginForm */ "./resources/components/LoginForm.js");
+/* harmony import */ var _LoginForm_LoginForm__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./LoginForm/LoginForm */ "./resources/components/LoginForm/LoginForm.js");
 /* harmony import */ var _history__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./history */ "./resources/components/history.js");
 /* harmony import */ var _Likes__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Likes */ "./resources/components/Likes.js");
 /* harmony import */ var _http__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./http */ "./resources/components/http.js");
@@ -15514,7 +15564,7 @@ var routes = [{
 }, {
   name: "Login",
   path: "/login",
-  component: _LoginForm__WEBPACK_IMPORTED_MODULE_4__.default
+  component: _LoginForm_LoginForm__WEBPACK_IMPORTED_MODULE_4__.default
 }, {
   name: "Successfully logged in",
   path: "/login-success/:userName/:userToken",

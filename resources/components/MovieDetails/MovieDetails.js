@@ -28,6 +28,9 @@ class MovieDetails extends Component {
         return this.props.match.params.movieId;
     }
 
+    /**
+     * Gets the movie data.
+     */
     getMovie() {
         this.context.updateGlobals({ isLoading: true });
         http(

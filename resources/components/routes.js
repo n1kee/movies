@@ -2,7 +2,7 @@ import React, {useContext, useEffect} from 'react';
 import {Link, Route, Switch} from 'react-router-dom';
 import MovieList from "./MovieList/MovieList";
 import MovieDetails from "./MovieDetails/MovieDetails";
-import LoginForm from "./LoginForm";
+import LoginForm from "./LoginForm/LoginForm";
 import history from "./history";
 import Likes from "./Likes";
 import http from "./http";

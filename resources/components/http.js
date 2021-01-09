@@ -1,6 +1,15 @@
 
 import history from "./history";
 
+/**
+ * Makes http requests.
+ *
+ * @param path string The path of the request.
+ * @param params object The params of the request.
+ * @param method string The method of the request.
+ * @param headers object The headers of the request.
+ * @returns {Promise<Response | void>}
+ */
 export default function http(path, params, method, headers) {
     method = method || "GET";
     params = (params || {});

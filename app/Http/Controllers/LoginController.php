@@ -6,6 +6,11 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
+	/**
+	 * Logs out the user.
+	 *
+	 * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+	 */
 	public function logout()
 	{
 		Auth::logout();
@@ -17,6 +22,11 @@ class LoginController extends Controller
 		return redirect('/');
 	}
 
+	/**
+	 * Logs in the user.
+	 *
+	 * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+	 */
     function login() {
 	    $credentials = \request()->only('email', 'password');
 
@@ -28,8 +38,6 @@ class LoginController extends Controller
 		    );
 	    }
 
-	    return back()->withErrors([
-		    'email' => 'The provided credentials do not match our records.',
-	    ]);
+	    return response("Unauthorized", 401);
     }
 }

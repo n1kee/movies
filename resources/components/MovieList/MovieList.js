@@ -15,6 +15,7 @@ class MovieList extends Component {
 
     static contextType = AppContext;
 
+    // Defines number of rows per page in the movies table.
     rowsPerPage = 10;
 
     state = {
@@ -25,10 +26,21 @@ class MovieList extends Component {
         orderDirection: false,
     };
 
+    /**
+     * Shows a movie details page.
+     *
+     * @param id number The movie id.
+     */
     onItemClick(id) {
         history.push("/movies/" + id);
     }
 
+    /**
+     * Handles a click on a Like button.
+     *
+     * @param evt The click event.
+     * @param movie The movie data.
+     */
     onLikeBtnClick(evt, movie) {
         evt.stopPropagation();
         if (Number.isInteger(movie.like_id)) {
@@ -38,6 +50,11 @@ class MovieList extends Component {
         }
     }
 
+    /**
+     * Sends request to create a like for a movie.
+     *
+     * @param movie The movie data.
+     */
     likeMovie(movie) {
         http(`/movies/${movie.id}/like`, {}, "POST").then(res => {
             movie.like_id = +res.data;
@@ -46,7 +63,12 @@ class MovieList extends Component {
         });
     }
 
-   unlikeMovie(movie) {
+    /**
+     * Sends request to remove a like for a movie.
+     *
+     * @param movie The movie data.
+     */
+    unlikeMovie(movie) {
         http(`/movies/unlike/${movie.like_id}`, {}, "POST").then(res => {
             movie.like_id = null;
             const updatedItems = [].slice.call(this.state.items);
@@ -54,6 +76,11 @@ class MovieList extends Component {
         });
     }
 
+    /**
+     * Changes the page of the movie table.
+     *
+     * @param page number The page number.
+     */
     changePage(page) {
         this.context.updateGlobals({ isLoading: true });
         const params = { page: page + 1, };
